@@ -73,6 +73,7 @@ export function displayError(error: string, show: boolean) {
 
   if (show) {
     errorContainer.classList.add("show");
+    console.log(errorContainer.className);
   } else {
     errorContainer.classList.remove("show");
   }

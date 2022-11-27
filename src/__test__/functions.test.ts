@@ -37,7 +37,7 @@ describe("changeTodo", () => {
     //Act
     changeTodo(testTodo);
     //Assert
-    expect((testTodo.done = false));
+    expect(testTodo.done).toBe(false);
   });
 });
 
