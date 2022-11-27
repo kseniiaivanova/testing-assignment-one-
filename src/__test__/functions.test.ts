@@ -45,8 +45,8 @@ describe("removeAllTodos", () => {
   test("should remove all todos", () => {
     //Arrange
     let listToEmpty: Todo[] = [
-      { text: "go to work", done: true },
-      { text: "buy flowers", done: false },
+      new Todo("go to work", true),
+      new Todo("buy flowers", false),
     ];
     //Act
     removeAllTodos(listToEmpty);

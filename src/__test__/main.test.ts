@@ -16,16 +16,16 @@ describe("displayError", () => {
     document.body.innerHTML = `<div id="error"> </div>`;
 
     //Act
-    functionsDom.displayError("error happened", true);
+    functionsDom.displayError("Du måste ange minst två bokstäver", true);
 
     //Assert
     // get elements
-    const divElem: HTMLElement | null = document.getElementById("error");
-    const text = divElem?.textContent;
+    let divElem: HTMLElement | null = document.getElementById("error");
+    let text = divElem?.textContent;
     console.log(text);
 
-    // check does div have same text as with we call function displayError
-    expect(text).toEqual("error happened");
+    // check does div have same text as in function call displayError
+    expect(text).toEqual("Du måste ange minst två bokstäver");
 
     // check does div have class "show"
     expect(divElem?.classList.contains("show")).toBe(true);
@@ -36,63 +36,13 @@ describe("displayError", () => {
     document.body.innerHTML = `<div id="error" class="show"> </div>`;
 
     //Act
-    functionsDom.displayError("error happened", false);
+    functionsDom.displayError("Du måste ange minst två bokstäver", false);
 
     //Assert
-    const divElem: HTMLElement | null = document.getElementById("error");
+    let divElem: HTMLElement | null = document.getElementById("error");
     expect(divElem?.classList.contains("show")).toBe(false);
   });
 });
-
-/* test("should show error message", () => {
-    //Assert
-    document.body.innerHTML = `<div id="error" class="error"></div>`;
-    let container: HTMLElement | null = document.getElementById("error");
-    let text = container?.textContent;
-
-    //Act
-    functionsDom.displayError("Du måste ange minst två bokstäver", true);
-
-    //Assert
-
-    //expect(text).toEqual("Du måste ange minst två bokstäver");
-    expect(container?.classList.contains("show")).toBe(true);
-  }); */
-/* test("should add class to errorContainer", () => {
-    //Arrange
-    document.body.innerHTML = `<div id="error" class="error"></div>`;
-
-    let show: boolean = true;
-
-    let error: string = "Du måste ange minst två bokstäver";
-    let container: HTMLDivElement = document.getElementById(
-      "error"
-    ) as HTMLDivElement;
-
-    //Act
-    functionsDom.displayError(error, show);
-    //Assert
-    expect(container.innerHTML).toBe(
-      `<div id="error" class="error show"></div>`
-    );
-  });
-
-  test("should remove class from errorContainer", () => {
-    //Arrange
-    document.body.innerHTML = `<div id="error" class="error"></div>`;
-    let container: HTMLDivElement = document.getElementById(
-      "error"
-    ) as HTMLDivElement;
-
-    let error: string = "Du måste ange minst två bokstäver";
-    let show: boolean = false;
-
-    //Act
-    functionsDom.displayError(error, show);
-    //Assert
-    expect(container.innerHTML).toBe("");
-  }); */
-//}); */
 
 describe("createNewTodo", () => {
   test("should call createHtml", () => {
@@ -120,41 +70,6 @@ describe("createNewTodo", () => {
   });
 });
 
-describe("createHtml", () => {
-  test("should put todos to localStorage", () => {
-    //Arrange
-    //Act
-    //Assert
-  });
-  test("should create HTML for each todo", () => {
-    //Arrange
-    //Act
-    //Assert
-  });
-  test("should add class to li element", () => {
-    //Arrange
-    //Act
-    //Assert
-  });
-  test("should be able to click", () => {
-    //Arrange
-    /*  document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
-    let todos: Todo[] = [{ text: "go to work", done: false }];
-    let li: HTMLLIElement = document.createElement("li");
-    let todo = todos[1];
-    todo.done = true;
-    let spy = jest.spyOn(functionsDom, "toggleTodo").mockReturnValue();
-    functionsDom.createHtml(todos);
-    //Act
-
-    document.querySelector("li")?.click();
-
-    //Assert
-
-    expect(spy).toHaveBeenCalled(); */
-  });
-});
-
 describe("toggleTodo", () => {
   test("should call changeTodo", () => {
     //Arrange
@@ -174,6 +89,52 @@ describe("toggleTodo", () => {
     functionsDom.toggleTodo(todo);
     document.getElementById("clearTodos")?.click();
     //Assert
+    expect(spy).toHaveBeenCalled();
+  });
+});
+
+describe("createHtml", () => {
+  beforeEach(() => {
+    jest.resetModules();
+
+    jest.restoreAllMocks();
+  });
+
+  test("should put todos to localStorage", () => {
+    //Arrange
+    let todos: Todo[] = [{ text: "buy some food", done: false }];
+
+    //Act
+    //Assert
+  });
+
+  test("should create HTML for each todo", () => {
+    //Arrange
+    let todos: Todo[] = [new Todo("buy some food", false)];
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let ul = document.getElementById("todos") as HTMLUListElement;
+    //Act
+    functionsDom.createHtml(todos);
+    //Assert
+
+    expect(ul.innerHTML).toBe(`<li class=\"todo__text\">buy some food</li>`);
+  });
+
+  test("should be able to call ToggleTodo", () => {
+    //Arrange
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let todos: Todo[] = [{ text: "go to work", done: false }];
+    let li: HTMLLIElement = document.createElement("li");
+    let todo = todos[0];
+    todo.done = true;
+    let spy = jest.spyOn(functionsDom, "toggleTodo").mockReturnValue();
+    functionsDom.createHtml(todos);
+    //Act
+
+    document.querySelector("li")?.click();
+
+    //Assert
+
     expect(spy).toHaveBeenCalled();
   });
 });
