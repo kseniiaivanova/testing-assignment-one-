@@ -100,12 +100,19 @@ describe("createHtml", () => {
     jest.restoreAllMocks();
   });
 
-  test("should put todos to localStorage", () => {
+  test("should change class of li element", () => {
     //Arrange
-    let todos: Todo[] = [{ text: "buy some food", done: false }];
-
+    let todos: Todo[] = [new Todo("buy some food", false)];
+    let todo = todos[0];
+    todo.done = true;
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let ul = document.getElementById("todos") as HTMLUListElement;
     //Act
+    functionsDom.createHtml(todos);
     //Assert
+    expect(ul.innerHTML).toBe(
+      `<li class=\"todo__text--done todo__text\">buy some food</li>`
+    );
   });
 
   test("should create HTML for each todo", () => {

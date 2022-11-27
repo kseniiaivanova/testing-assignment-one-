@@ -84,5 +84,27 @@ export function clearTodos(todos: Todo[]) {
   exports.createHtml(todos);
 }
 
+/* export function sortTodos() {
+  let todos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
+
+  let sortedTodos: Todo[] = todos.sort((a: Todo, b: Todo) => {
+    let textTodoa: string = a.text.toLowerCase();
+    let textTodob: string = b.text.toLowerCase();
+
+    if (textTodoa < textTodob) {
+      return -1;
+    }
+
+    if (textTodoa > textTodob) {
+      return 1;
+    }
+    return 0;
+  });
+
+  console.log(sortedTodos);
+  createHtml(sortedTodos);
+} */
+
 exports.init();
+
 //createHtml(todos);
