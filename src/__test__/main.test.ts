@@ -130,7 +130,7 @@ describe("createHtml", () => {
   test("should be able to call ToggleTodo", () => {
     //Arrange
     document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
-    let todos: Todo[] = [{ text: "go to work", done: false }];
+    let todos: Todo[] = [new Todo("go to work", false)];
     let li: HTMLLIElement = document.createElement("li");
     let todo = todos[0];
     todo.done = true;
